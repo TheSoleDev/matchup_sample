@@ -13,11 +13,47 @@
     </head>
     <body>
 
-        <div data-role="page" id="map-page" data-url="map-page">
+        <!-- Start of first page -->
+        <div data-role="page" id="main-screen">
 
-            <div class="ui-grid-a card-container"> </div><!-- /grid-a -->
+            <div data-role="header">
+                <h1>Foo</h1>
+            </div><!-- /header -->
 
-        </div>
+            <div role="main" class="ui-content">
+
+                <p> <a href="#" data-level="easy" data-ajax="false" class="btn-gameLevel ui-shadow ui-btn ui-corner-all ui-mini">Easy</a></p>
+                <p> <a href="#" data-level="moderate" data-ajax="false" class="btn-gameLevel ui-shadow ui-btn ui-corner-all ui-mini">Moderate</a></p>
+                <p> <a href="#" data-level="hard" data-ajax="false" class="btn-gameLevel ui-shadow ui-btn ui-corner-all ui-mini">Hard</a></p>
+                <p> <a href="#" data-level="expert" data-ajax="false" class="btn-gameLevel ui-shadow ui-btn ui-corner-all ui-mini">Expert</a></p>
+
+            </div><!-- /content -->
+
+            <div data-role="footer">
+                <h4>Page Footer</h4>
+            </div><!-- /footer -->
+        </div><!-- /page -->
+
+        <!-- Start of second page -->
+        <div data-role="page" id="game-screen">
+
+            <div data-role="header">
+                <h1>Bar</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+
+                <div class="ui-grid-c card-container"> </div><!-- /grid-c -->
+
+                <p><a href="#foo">Back</a></p>
+            </div><!-- /content -->
+
+            <div data-role="footer">
+                <h4>Page Footer</h4>
+            </div><!-- /footer -->
+        </div><!-- /page -->   
+
+
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.3.js"></script>

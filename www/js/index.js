@@ -15,9 +15,15 @@
 var selectedItem = '',
     arrItem = [], 
     wrongpoints = 0,
-    match_count = 2;
+    match_count = 4;
 
-$( document ).on( "pagecreate", "#map-page", function() {
+    $('#main-screen').on('click','.btn-gameLevel',function(e) { 
+
+        localStorage.setItem("game-option", $(this).data('level'));
+        window.location = "#game-screen";
+    }); 
+
+$( document ).on( "pagecreate", "#game-screen", function() {
 
     $('.card-item').click(function(){
 
@@ -86,17 +92,20 @@ $( document ).on( "pagecreate", "#map-page", function() {
           return array;
     }
 
-
-    var arr = ['A','A','B','B'];
+    var arrBlock = ['ui-block-a','ui-block-b','ui-block-c','ui-block-d'];
+    var arr = ['A','A','B','B','C','C','D','D'];
     shuffle(arr);
-    console.log(arr);
 
 
+var currentBlock = 0;
     $.each(arr, function( index, value ) {
-      console.log( index + ": " + value );
-
-      var block = index%2==0?"ui-block-a":"ui-block-b";
+      
+      if(currentBlock >= arrBlock.length)
+      {
+        currentBlock = 0;
+      }
+      var block = arrBlock[currentBlock];
       console.log(block);
         $('.card-container').append('<div class="'+block+' block-item"><div class="ui-bar ui-bar-a card-item" id="'+index+'" data-value="'+value+'"><div class="card"><div class="face front"></div><div class="face back">'+value+'</div></div></div></div>');
-
+        currentBlock++;
     });

@@ -8,14 +8,16 @@ body {
   padding: 15px;
 }
 
-
+.block-item{
+  margin-top: 10px !important;
+}
 
 .card-item {
   -webkit-perspective: 800;
   width: 100px;
   height: 160px;
     position: relative;
-    margin: 20px auto;
+
 }
 .card-item .card.flipped {
   -webkit-transform: rotatex(-180deg);
