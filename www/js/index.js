@@ -2,7 +2,11 @@ var selectedItem = '',
     tempSelectedId = '',
     arrItem = [], 
     wrongpoints = 0,
-    match_count;
+    match_count,
+    timerSec = 0,
+    timer;
+
+
 
     $('#main-screen').on('click','.btn-gameLevel',function(e) { 
 
@@ -50,7 +54,8 @@ var selectedItem = '',
 
                     if(match_count == 0)
                     {
-                        if(confirm('Total mistake ' + wrongpoints + '. \nDo you want to play again?'))
+                       clearInterval(timer);
+                        if(confirm('Your time is '+timerSec+' with Total mistake ' + wrongpoints + '. \nDo you want to play again?'))
                         {
                             generateBoard(localStorage.getItem("game-option"));  
                         }
@@ -85,10 +90,6 @@ var selectedItem = '',
     $( document ).on( "pagebeforeshow", "#game-screen", function() {
 
         generateBoard(localStorage.getItem("game-option"));  
-      
-
-
-
        
     });  
 
@@ -122,10 +123,10 @@ var selectedItem = '',
       wrongpoints = 0;
 
       var arrCardOption = {
-                            'easy':{'cardcount':'6','blockcount':'3','grid':'ui-grid-c'},
-                            'moderate':{'cardcount':'12','blockcount':'4','grid':'ui-grid-c'},
-                            'hard':{'cardcount':'16','blockcount':'4','grid':'ui-grid-c'},
-                            'expert':{'cardcount':'20','blockcount':'5','grid':'ui-grid-d'},
+                            'easy':{'cardcount':'6','blockcount':'3','grid':'ui-grid-c','game-timer':'30'},
+                            'moderate':{'cardcount':'12','blockcount':'4','grid':'ui-grid-c','game-timer':'60'},
+                            'hard':{'cardcount':'16','blockcount':'4','grid':'ui-grid-c','game-timer':'80'},
+                            'expert':{'cardcount':'20','blockcount':'5','grid':'ui-grid-d','game-timer':'120'},
                           };
 
 
@@ -152,7 +153,7 @@ var selectedItem = '',
 
         var currentBlock = 0;
         var arr_str = [];   
-        
+        arr_str.push('<div class="lbl-timer"></div>'); 
         arr_str.push('<div class="'+arrCardOption[selectedLevel]['grid']+'">'); 
 //console.log(arrCardOption[selectedLevel]['blockcount']);
         $.each(arrCard, function( index, value ) {
@@ -174,4 +175,18 @@ var selectedItem = '',
 
         $('#card-container').html(arr_str.join(''));
 
+        timerSec = arrCardOption[selectedLevel]['game-timer'];
+        timer = setInterval(function() {
+                      $('.lbl-timer').html(timerSec);
+                      if(timerSec < 1){
+                        clearInterval(timer);
+
+                        if(confirm('Game over! \nDo you want to play again?'))
+                        {
+                            generateBoard(localStorage.getItem("game-option"));  
+                        }                        
+                      }
+                      timerSec -= 1;
+
+                    }, 1000);
     }
