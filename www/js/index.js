@@ -1,4 +1,5 @@
 var selectedItem = '',
+    tempSelectedId = '',
     arrItem = [], 
     wrongpoints = 0,
     match_count;
@@ -16,22 +17,24 @@ var selectedItem = '',
        document.location.href="board.html";
     }); 
 
-    $( document ).on( "pagebeforeshow", "#game-screen", function() {
+    $('#game-screen').on('click','.btn-back',function(e) { 
+      document.location.href="index.html";
+    });
 
-        generateBoard(localStorage.getItem("game-option"));  
-  
+    $('#game-screen').on('click','.card-item',function(e) { 
 
-      
-        $('.btn-back').click(function(){
-          document.location.href="index.html";
-        });
-
-
-        $('.card-item').click(function(){
-console.log(match_count);
             $(this).find('.card').addClass('flipped');
 
             arrItem.push($(this).attr('id'));
+
+            if(tempSelectedId == $(this).attr('id')) {
+              return false;
+            }
+            else
+            {
+              tempSelectedId = $(this).attr('id');
+            }
+
             if(selectedItem == '')
             {
                 selectedItem = $(this).data('value');
@@ -67,7 +70,8 @@ console.log(match_count);
                        selectedItem = '';    
 
                     }, 1000);
-               
+                    
+                    tempSelectedId = '';
                     wrongpoints +=1;
                  }
             }   
@@ -75,7 +79,17 @@ console.log(match_count);
             console.log(wrongpoints);        
 
             return false;
-        });    
+   
+    }); 
+
+    $( document ).on( "pagebeforeshow", "#game-screen", function() {
+
+        generateBoard(localStorage.getItem("game-option"));  
+      
+
+
+
+       
     });  
 
     function shuffle(array) {
