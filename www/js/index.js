@@ -1,6 +1,8 @@
 var selectedItem = '',
+    selectedItemTemp = '',
     tempSelectedId = '',
     arrItem = [], 
+    arrItemTemp = [], 
     wrongpoints = 0,
     match_count,
     timerSec = 0,
@@ -65,18 +67,21 @@ var selectedItem = '',
                  else
                  {
 
+                    arrItemTemp = arrItem;
+                    selectedItemTemp = selectedItem;
                     setTimeout(function() {
                  
-                        $.each(arrItem, function( index, value ) {
+                        $.each(arrItemTemp, function( index, value ) {
                             console.log(value);
                             $('#'+value).find('.card').removeClass('flipped');
                         });
-                       arrItem = [];
-                       selectedItem = '';    
+                       arrItemTemp = [];
+                       selectedItemTemp = '';    
 
                     }, 1000);
                     
-                    tempSelectedId = '';
+                    arrItem = [];
+                    selectedItem = '';    
                     wrongpoints +=1;
                  }
             }   
@@ -155,7 +160,7 @@ var selectedItem = '',
         var arr_str = [];   
         arr_str.push('<div class="lbl-timer"></div>'); 
         arr_str.push('<div class="'+arrCardOption[selectedLevel]['grid']+'">'); 
-//console.log(arrCardOption[selectedLevel]['blockcount']);
+        //console.log(arrCardOption[selectedLevel]['blockcount']);
         $.each(arrCard, function( index, value ) {
           
           if(currentBlock >= arrCardOption[selectedLevel]['blockcount'])
